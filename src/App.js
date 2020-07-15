@@ -20,12 +20,17 @@ class App extends Component {
   }
 
   submitForm = e => {
-    if (this.state.minYear === 0 || this.state.maxYear === 0) {
+    let maxYear = parseInt(this.state.maxYear);
+    let minYear = parseInt(this.state.minYear);
+    if (minYear === 0 || maxYear === 0) {
+      alert("Invalid Values");
+      return;
+    }
+    if (minYear > maxYear) {
       alert("Invalid Value");
       return;
     }
-
-    GraphService.fetchData(this.state.minYear, this.state.maxYear)
+    GraphService.fetchData(minYear, maxYear)
         .then(res => {
           this.setState({
             data: res.data
